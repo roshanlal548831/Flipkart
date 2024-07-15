@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
+const {userRegister,userLogin} = require("../controller/userControllers")
+ router.use(express.json())
 
-
-router.get("/",(req,res)=>{
-    res.send("backend run")
-});
+router.post("/register",userRegister);
+router.post("/login",userLogin);
 
 
 
