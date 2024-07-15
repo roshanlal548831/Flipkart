@@ -14,7 +14,7 @@ const userRegister = async(req,res)=>{
                 res.status(201).json({msg: "user Register success"})
 
           } catch (error) {
-            res.status(400).send(error)
+            res.status(400).json(error)
             console.log(error)
           }
       };
@@ -27,20 +27,17 @@ const userRegister = async(req,res)=>{
             const isemail = await userModel.findOne({email:email});
 
              if(!isemail){
-                res.status(404).json({
-                    msg: "wrong email"
-                })
+                res.status(400).json({ msg: "wrong email" })
              }
-            const passwordmatch =await bcrypt.compare(password,isemail.password)
+            const passwordmatch = await bcrypt.compare(password,isemail.password)
                     if(passwordmatch){
-                     return   res.status(201).json({
+                           res.status(201).json({
                             msg: "user login success fully",
                             name: isemail.username
                         })
                     }else{
-                        res.status(404).json({
-                            msg: "wrong password"
-                        })
+                      res.status(401).json({msg: "wrong password"})
+
                     }
           } catch{
             

@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import ".//css/login.css";
 import { NavLink } from 'react-router-dom';
+import axios from 'axios';
+// import axios from "axios"
+
 
 
 
@@ -27,8 +30,19 @@ const Login = () => {
 
   const inputSubmit = async(v)=>{
     v.preventDefault();
-    console.log(user)
-  
+    
+      try {
+        const response = await axios.post("http://localhost:8000/api/user/login",user);
+        const data = await response.data.msg
+        alert(data)
+        setUser({
+          email: "",
+          password: ""
+        })
+      } catch (error) {
+        const data = error.response.data.msg
+        alert(data)
+      }
   }
 
   return (

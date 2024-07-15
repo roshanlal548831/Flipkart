@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ".//css/Register.css";
+import axios from "axios"
 import { useNavigate } from 'react-router-dom';
 
 
@@ -11,7 +12,7 @@ const Register = () => {
      password: "",
    });
 
-const navigate = useNavigate()
+const navigate = useNavigate();
 
 // token
 // const storeTokenInLs = useAuth()
@@ -33,9 +34,21 @@ const handleInput = (e)=>{
 
 const handleSubmit = async(v)=>{
   v.preventDefault();
-  
-console.log(user)
+ 
+   try {
+    const response = await axios.post("http://localhost:8000/api/user/register",user);
+    const data = await response.data
+    alert(data.msg)
+    setUser({
+      username: "",
+      email: "",
+      password: "",
+    })
 
+   } catch (error) {
+   const data = error.response.data.message;
+   alert(data)
+   }
    
 }
 
