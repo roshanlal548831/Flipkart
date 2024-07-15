@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const userRouter = require("./routers/userRoute")
+require("./db/conn")
 
 
 app.use("/api",userRouter)

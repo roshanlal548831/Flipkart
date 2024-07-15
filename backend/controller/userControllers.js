@@ -1,3 +1,5 @@
 const userModel = require("../models/usersModels");
 
-const userController = (req,re)
+const userController = async(req,res)=>{
+     
+}
