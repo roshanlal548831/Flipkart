@@ -5,8 +5,8 @@ const Navbar = () => {
   const navigate = useNavigate()
   const token = localStorage.getItem("token");
   const handleLogout = () => {
+    navigate("/")
    localStorage.removeItem("token");
-   navigate("/")
   
   }
   return (
@@ -28,7 +28,7 @@ const Navbar = () => {
         <NavLink className="nav-link" to="/services">Services</NavLink>
       </li>
       <li className="nav-item">
-          <NavLink className="nav-link" onClick={handleLogout}>Logout</NavLink>
+           <button className="nav-link" onClick={handleLogout} >Logout</button>
         </li>
         </>
       ):(

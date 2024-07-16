@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import ".//css/login.css";
 import { NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-// import axios from "axios"
-
+import {toast} from  "react-toastify";
 
 
 
@@ -15,6 +14,8 @@ const Login = () => {
     email: "",
     password: ""
   })
+
+  
    
 const navigate = useNavigate()
 
@@ -35,9 +36,10 @@ const navigate = useNavigate()
         const response = await axios.post("http://localhost:8000/api/user/login",user);
         const data = await response.data.msg
         const token = await response.data.token;
-       localStorage.setItem("token",token)
+     
+        localStorage.setItem("token",token)
          if(data){
-          // alert(data)
+          toast(data)
           setUser({
             email: "",
             password: ""
@@ -46,8 +48,7 @@ const navigate = useNavigate()
          }
       } catch (error) {
         const data = error.response.data.msg;
-
-        alert(data)
+        toast.error(data)
       }
   }
 

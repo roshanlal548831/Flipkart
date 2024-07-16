@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ".//css/Register.css";
 import axios from "axios"
 import { useNavigate } from 'react-router-dom';
+import {toast} from  "react-toastify"
 
 
 
@@ -38,7 +39,13 @@ const handleSubmit = async(v)=>{
    try {
     const response = await axios.post("http://localhost:8000/api/user/register",user);
     const data = await response.data
-    alert(data.msg)
+    const token = await response.data.token;
+    localStorage.setItem("token",token)
+
+    if(data){
+      toast.success(data.msg)
+     navigate("/")
+    }
     setUser({
       username: "",
       email: "",
@@ -47,7 +54,7 @@ const handleSubmit = async(v)=>{
 
    } catch (error) {
    const data = error.response.data.message;
-   alert(data)
+   toast.error(data)
    }
    
 }

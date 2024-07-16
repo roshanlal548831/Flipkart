@@ -8,6 +8,7 @@ import Register from './container/Register';
 import Admin from './container/Admin';
 
 const App = () => {
+  // const token = localStorage.getItem("token");
   return (
     <>
      <BrowserRouter>
@@ -15,7 +16,7 @@ const App = () => {
      <Routes>
          <Route path='/' element={<Home/>}/>
          <Route path='/services' element={<Services/>}/>
-         <Route path='/login' element={<Login/>}/>
+          <Route path='/login' element={<Login/>}/>
          <Route path='/register' element={<Register/>}/>
          <Route path='/admin' element={<Admin/>}/>
      </Routes>
