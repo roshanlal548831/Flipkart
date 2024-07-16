@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ".//css/login.css";
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 // import axios from "axios"
 
@@ -16,7 +16,7 @@ const Login = () => {
     password: ""
   })
    
-
+const navigate = useNavigate()
 
   const handleInput = (e)=>{
     let name = e.target.name;
@@ -35,14 +35,18 @@ const Login = () => {
         const response = await axios.post("http://localhost:8000/api/user/login",user);
         const data = await response.data.msg
         const token = await response.data.token;
-        console.log(token)
-        alert(data)
-        setUser({
-          email: "",
-          password: ""
-        })
+       localStorage.setItem("token",token)
+         if(data){
+          // alert(data)
+          setUser({
+            email: "",
+            password: ""
+          });
+          navigate("/")
+         }
       } catch (error) {
-        const data = error.response.data.msg
+        const data = error.response.data.msg;
+
         alert(data)
       }
   }

@@ -17,16 +17,20 @@ const userSchema = new mongoose.Schema({
         type: String,
         required:true
       },
-      isAdmin:{
-        type: Boolean,
-        default: false
+      role:{
+        type: String,
+        enum:["admin","customer"],
+        default: "customer"
       }
 });
 
 userSchema.methods.usergenrateAuthToken = async function(){
    try {
     const user = this;
-    const token = jwt.sign({ _id: user._id.toString() }, 'FlipkartThisIsAwesomeWbsiteAndVaryUserfull');
+    const token = jwt.sign({
+       _id: user._id.toString() ,
+      email: user.email
+      }, 'FlipkartThisIsAwesomeWbsiteAndVaryUserfull',{expiresIn:"1h"});
     await this.save()
     return token;
    } catch (error) {

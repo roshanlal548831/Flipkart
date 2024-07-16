@@ -1,7 +1,14 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
+  const navigate = useNavigate()
+  const token = localStorage.getItem("token");
+  const handleLogout = () => {
+   localStorage.removeItem("token");
+   navigate("/login")
+  
+  }
   return (
     <>
   <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -15,14 +22,22 @@ const Navbar = () => {
         <li className="nav-item">
           <NavLink className="nav-link active" aria-current="page" to="/">Home</NavLink>
         </li>
+       {token?   (
+        <>
         <li className="nav-item">
-          <NavLink className="nav-link" to="/services">Services</NavLink>
+        <NavLink className="nav-link" to="/services">Services</NavLink>
+      </li>
+      <li className="nav-item">
+          <NavLink className="nav-link" onClick={handleLogout}>Logout</NavLink>
         </li>
+        </>
+      ):(
         <li className="nav-item">
-          <NavLink className="nav-link" to="/login">Login</NavLink>
-        </li>
-  
-       
+        <NavLink className="nav-link" to="/login">Login</NavLink>
+      </li>
+      )
+      
+      }
       </ul>
     
     </div>

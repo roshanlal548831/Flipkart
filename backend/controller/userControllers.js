@@ -6,7 +6,8 @@ const userRegister = async(req,res)=>{
             const email = req.body.email;
             const userData = req.body;
 
-            const usereExist = await userModel.findOne({email:email})
+            const usereExist = await userModel.findOne({email:email});
+            
             if(usereExist){
                 return await res.status(400).json({message: "emall already exists"})
               };
@@ -19,6 +20,9 @@ const userRegister = async(req,res)=>{
 
                 res.status(201).json({
                   msg: "user Register success",
+                  username:usersData.username,
+                  email:usersData.emaul,
+                  role:usersData.role,
                   token: token
                 })
 
