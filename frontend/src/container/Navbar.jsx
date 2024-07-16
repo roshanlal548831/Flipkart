@@ -6,7 +6,7 @@ const Navbar = () => {
   const token = localStorage.getItem("token");
   const handleLogout = () => {
    localStorage.removeItem("token");
-   navigate("/login")
+   navigate("/")
   
   }
   return (
@@ -22,7 +22,7 @@ const Navbar = () => {
         <li className="nav-item">
           <NavLink className="nav-link active" aria-current="page" to="/">Home</NavLink>
         </li>
-       {token?   (
+       {token ? (
         <>
         <li className="nav-item">
         <NavLink className="nav-link" to="/services">Services</NavLink>
