@@ -10,8 +10,17 @@ const userRegister = async(req,res)=>{
             if(usereExist){
                 return await res.status(400).json({message: "emall already exists"})
               };
-                await userModel.create(userData)
-                res.status(201).json({msg: "user Register success"})
+              const usersData =  await userModel.create(userData)
+
+              const token = await usersData.usergenrateAuthToken();
+              res.cookie("jwt",token)
+
+              console.log("this token",token)
+
+                res.status(201).json({
+                  msg: "user Register success",
+                  token: token
+                })
 
           } catch (error) {
             res.status(400).json(error)
@@ -25,6 +34,12 @@ const userRegister = async(req,res)=>{
             const email = req.body.email
 
             const isemail = await userModel.findOne({email:email});
+            const token = await isemail.usergenrateAuthToken()
+            res.cookie("jwt",token,{
+              expires: new Date(Date.now()+500000),
+              httpOnly:true
+          })
+            console.log("this token",token)
 
              if(!isemail){
                 res.status(400).json({ msg: "wrong email" })
@@ -33,7 +48,8 @@ const userRegister = async(req,res)=>{
                     if(passwordmatch){
                            res.status(201).json({
                             msg: "user login success fully",
-                            name: isemail.username
+                            name: isemail.username,
+                            token: token
                         })
                     }else{
                       res.status(401).json({msg: "wrong password"})

@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
+const jwt = require("jsonwebtoken")
 
 
 const userSchema = new mongoose.Schema({
@@ -16,9 +17,22 @@ const userSchema = new mongoose.Schema({
         type: String,
         required:true
       },
-    
+      isAdmin:{
+        type: Boolean,
+        default: false
+      }
 });
 
+userSchema.methods.usergenrateAuthToken = async function(){
+   try {
+    const user = this;
+    const token = jwt.sign({ _id: user._id.toString() }, 'FlipkartThisIsAwesomeWbsiteAndVaryUserfull');
+    await this.save()
+    return token;
+   } catch (error) {
+    console.log("token errro",error)
+   }
+}
 
 userSchema.pre("save", async function(next){
        const user = this;

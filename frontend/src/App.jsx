@@ -5,6 +5,7 @@ import Home from './container/Home';
 import Services from './container/Services';
 import Login from './container/Login';
 import Register from './container/Register';
+import Admin from './container/Admin';
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
          <Route path='/services' element={<Services/>}/>
          <Route path='/login' element={<Login/>}/>
          <Route path='/register' element={<Register/>}/>
+         <Route path='/admin' element={<Admin/>}/>
      </Routes>
      </BrowserRouter>
     </>
