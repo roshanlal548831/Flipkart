@@ -12,8 +12,9 @@ const Services = () => {
 
   const services = async () =>{
     if(token){
-      const servicesData = await axios.get("http://localhost:8000/api/user/service");
-      setData(servicesData.data.data)
+      const servicesData = await axios.get("https://fakestoreapi.com/products");
+      setData(servicesData.data)
+      // console.log(servicesData.data)
     }else{
        navigate("/")
     }
@@ -36,8 +37,17 @@ const Services = () => {
                          <div key={i} className="card col-md-4 m-2" style={{width: "18rem"}}>
                            <img src={item.image} className="card-img-top" alt="..." height={"200px"}/>
                            <div className="card-body">
-                             <h4 className="card-title">{item.name}</h4>
-                             <h6 className="card-title"> Prices: {item.prices} ₹</h6>
+                             <h4 className="card-title">{item.title}</h4>
+                            <div className="row">
+                               <div className="col-md-6">
+                               <h6 className="card-title"> Price: {item.price} ₹</h6>
+                               </div>
+                               <div className="col-md-6">
+                               <h5 className="card-title"> Rating</h5>
+                               <h6>Rate{item.rating.rate}</h6>
+                               <h6>Count{item.rating.count}</h6>
+                               </div>
+                            </div>
                              <p className="card-title">{item.description}</p>
                            </div>
                          </div>
