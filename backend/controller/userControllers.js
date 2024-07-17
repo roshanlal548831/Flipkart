@@ -14,7 +14,7 @@ const userRegister = async(req,res)=>{
               const usersData =  await userModel.create(userData)
 
               const token = await usersData.usergenrateAuthToken();
-              res.cookie("jwt",token)
+            
 
               console.log("this token",token)
 
@@ -38,16 +38,14 @@ const userRegister = async(req,res)=>{
             const email = req.body.email
 
             const isemail = await userModel.findOne({email:email});
+            if(!isemail){
+              res.status(400).json({ msg: "wrong email" })
+           }
             const token = await isemail.usergenrateAuthToken()
-            res.cookie("jwt",token,{
-              expires: new Date(Date.now()+500000),
-              httpOnly:true
-          })
+          
             console.log("this token",token)
 
-             if(!isemail){
-                res.status(400).json({ msg: "wrong email" })
-             }
+          
             const passwordmatch = await bcrypt.compare(password,isemail.password)
                     if(passwordmatch){
                            res.status(201).json({
