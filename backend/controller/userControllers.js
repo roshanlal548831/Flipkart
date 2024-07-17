@@ -16,7 +16,7 @@ const userRegister = async(req,res)=>{
               const token = await usersData.usergenrateAuthToken();
             
 
-              console.log("this token",token)
+             
 
                 res.status(201).json({
                   msg: "user Register success",

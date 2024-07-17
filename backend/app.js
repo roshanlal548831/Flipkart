@@ -3,7 +3,6 @@ const app = express();
 const userRouter = require("./routers/userRoute")
 const cors = require("cors");
 require("./db/conn")
-const createAdminAccount  = require("./admin/admin")
 
 
 
@@ -15,7 +14,6 @@ let corsOptions = {
   }
 app.use(cors(corsOptions))
 app.use("/api/user",userRouter)
-createAdminAccount()
 
 
 
