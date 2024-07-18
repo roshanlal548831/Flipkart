@@ -14,7 +14,7 @@ const Services = () => {
     if(token){
       const servicesData = await axios.get("https://fakestoreapi.com/products");
       setData(servicesData.data)
-      // console.log(servicesData.data)
+      console.log(servicesData.data)
     }else{
        navigate("/")
     }
@@ -22,7 +22,7 @@ const Services = () => {
    
   useEffect(()=>{
       services()
-  })
+  },[])
 
  
   return (
@@ -44,8 +44,8 @@ const Services = () => {
                                </div>
                                <div className="col-md-6">
                                <h5 className="card-title"> Rating</h5>
-                               <h6>Rate{item.rating.rate}</h6>
-                               <h6>Count{item.rating.count}</h6>
+                               <h6>Rate : {item.rating.rate}</h6>
+                               <h6>Count : {item.rating.count}</h6>
                                </div>
                             </div>
                              <p className="card-title">{item.description}</p>
