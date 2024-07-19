@@ -36,7 +36,9 @@ const navigate = useNavigate()
         const response = await axios.post("http://localhost:8000/api/user/login",user);
         const data = await response.data.msg
         const token = await response.data.token;
-     
+
+         localStorage.setItem("name",response.data.name)
+
         localStorage.setItem("token",token)
          if(data){
           toast(data)

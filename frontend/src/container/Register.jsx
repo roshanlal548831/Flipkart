@@ -40,8 +40,9 @@ const handleSubmit = async(v)=>{
     const response = await axios.post("http://localhost:8000/api/user/register",user);
     const data = await response.data
     const token = await response.data.token;
+    localStorage.setItem("name",response.data.name)
     localStorage.setItem("token",token)
-
+  
     if(data){
       toast.success(data.msg)
      navigate("/")
