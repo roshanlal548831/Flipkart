@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Loder from './Loder';
 
 
 const Services = () => {
     
   const[data,setData] = useState([]);
+  const[loder,setLoder] = useState()
 
   const token = localStorage.getItem("token");
   const navigate = useNavigate()
 
   const services = async () =>{
+  try {
     if(token){
       const servicesData = await axios.get("https://fakestoreapi.com/products");
       setData(servicesData.data)
@@ -18,6 +21,11 @@ const Services = () => {
     }else{
        navigate("/")
     }
+  } catch (error) {
+   if(error){
+    setLoder(error)
+   }
+  }
   }
    
   useEffect(()=>{
@@ -27,10 +35,11 @@ const Services = () => {
  
   return (
     <>
-   
+     
+    {
+      loder? (<Loder/>):
       <div className="container">
          <div className="row">
-             
                   {
                     data.map((item,i) => {
                       return (
@@ -54,13 +63,14 @@ const Services = () => {
                       )
                     })
                   }
-             
-                
+    
+           
          </div>
     </div>
-     
+}
     </>
   )
 }
+
 
 export default Services
