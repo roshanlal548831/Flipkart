@@ -17,7 +17,7 @@ const Services = () => {
     if(token){
       const servicesData = await axios.get("https://fakestoreapi.com/products");
       setData(servicesData.data)
-      console.log(servicesData.data)
+      // console.log(servicesData.data)
     }else{
        navigate("/")
     }

@@ -41,8 +41,8 @@ const handleSubmit = async(v)=>{
     const data = await response.data
     const token = await response.data.token;
    if(response){
-    console.log("name",response.data.name)
-    console.log(response.data)
+    // console.log("name",response.data.name)
+    // console.log(response.data)
     localStorage.setItem("name",response.data.username)
     localStorage.setItem("token",token)
    }
